@@ -14,9 +14,12 @@
 </ul>
 </template>
 
+
 <template name="todoItem"> 
-<li>{{name}}</li>
+<li> {{name}}
+[<a href="#" class="delete-todo">Delete</a>] </li>
 </template>
+
 
 <template name="addTodo"> 
 <form>

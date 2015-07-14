@@ -33,6 +33,10 @@ Template.todoItem.events({
     	    }
 }
 
+'keyup [name=todoItem]': function(event){
+console.log("You just tapped a key on your keyboard.");
+}
+
 });
 
 

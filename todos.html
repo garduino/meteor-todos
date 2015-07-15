@@ -15,12 +15,15 @@
 </template>
 
 
+<!--{{checked}} referencia al helper que devuelve el estado del checkbox en el documento-->
 <template name="todoItem">
-<li>
+<li class="{{checked}}">
+<input type="checkbox" {{checked}}>
 <input type="text" value="{{name}}" name="todoItem">
 [<a href="#" class="delete-todo">Delete</a>]
 </li>
 </template>
+
 
 
 <template name="addTodo"> 

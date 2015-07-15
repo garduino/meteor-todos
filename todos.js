@@ -34,11 +34,15 @@ Template.todoItem.events({
 },
 
 'keyup [name=todoItem]': function(event){
-var documentId = this._id;
-var todoItem = $(event.target).val();
-Todos.update({ _id: documentId }, {$set: { name: todoItem }});
-console.log("Task changed to: " + todoItem);
+	if(event.which == 13 || event.which == 27){
+		$(event.target).blur();
+	} else {
+		var documentId = this._id;
+		var todoItem = $(event.target).val();
+		Todos.update({ _id: documentId }, {$set: { name: todoItem }});
+	}
 }
+
 
 });
 

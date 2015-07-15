@@ -18,6 +18,21 @@ Template.todoItem.helpers({
 });
 
 
+Template.todosCount.helpers({
+// helpers go here
+	'totalTodos': function(){
+		// code goes here
+		return Todos.find().count();
+	},
+	'completedTodos': function(){
+		// code goes here
+		return Todos.find({ completed: true }).count();
+	}
+
+});
+
+
+
 //Events
 Template.addTodo.events({
 // events go here

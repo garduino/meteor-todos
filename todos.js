@@ -89,11 +89,16 @@ Template.todoItem.events({
 
 
 
-
-
-
 if(Meteor.isServer){
 // server code goes here
 }
 
 Todos = new Meteor.Collection('todos');
+
+Router.route('/register');
+
+Router.route('/login');
+
+Router.route('/', {
+		template: 'home'
+});

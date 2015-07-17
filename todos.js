@@ -1,3 +1,7 @@
+Router.configure({
+		layoutTemplate: 'main'
+});
+
 if(Meteor.isClient){
 // client code goes here
 

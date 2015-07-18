@@ -104,5 +104,6 @@ Router.route('/register');
 Router.route('/login');
 
 Router.route('/', {
-		template: 'home'
+    name: 'home',
+    template: 'home'
 });

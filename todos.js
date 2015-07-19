@@ -35,7 +35,11 @@ Template.todosCount.helpers({
 
 });
 
-
+Template.lists.helpers({
+		'list': function(){
+			return Lists.find({}, {sort: {name: 1}});
+		} 
+});
 
 //Events
 Template.addTodo.events({
@@ -87,7 +91,15 @@ Template.todoItem.events({
 
 });
 
-
+Template.addList.events({
+'submit form': function(event){
+event.preventDefault();
+var listName = $('[name=listName]').val(); Lists.insert({
+          name: listName
+      });
+      $('[name=listName]').val('');
+    }
+});
 
 }
 
@@ -98,6 +110,8 @@ if(Meteor.isServer){
 }
 
 Todos = new Meteor.Collection('todos');
+
+Lists = new Meteor.Collection('lists');
 
 Router.route('/register');
 

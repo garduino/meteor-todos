@@ -121,3 +121,11 @@ Router.route('/', {
     name: 'home',
     template: 'home'
 });
+
+
+
+Router.route('/list/:_id', { 
+		data: function(){
+       // xxxxx
+    }
+});

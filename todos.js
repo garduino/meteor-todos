@@ -122,10 +122,11 @@ Router.route('/', {
     template: 'home'
 });
 
-
-
-Router.route('/list/:_id', { 
+Router.route('/list/:_id', {
+		template: 'listPage',
 		data: function(){
-       // xxxxx
-    }
+			// console.log(this.params._id);
+			var currentList = this.params._id;
+			return Lists.findOne({ _id: currentList });
+		}
 });

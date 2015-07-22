@@ -6,9 +6,14 @@ if(Meteor.isClient){
 // client code goes here
 
 // Helpers
-Template.todos.helpers({ 'todo': function(){
-return Todos.find({}, {sort: {createdAt: -1}}); }
+
+Template.todos.helpers({
+		'todo': function(){
+			var currentList = this._id;
+			return Todos.find({ listId: currentList }, {sort: {createdAt: -1}})
+		}
 });
+
 
 Template.todoItem.helpers({
 		'checked': function(){
@@ -45,16 +50,19 @@ Template.lists.helpers({
 Template.addTodo.events({
 // events go here
 
-'submit form': function(event){ 
+'submit form': function(event){
 	event.preventDefault();
 	// uso de jQuery para recuperar el valor del nombre, ver página 18
-	var todoName = $('[name="todoName"]').val(); Todos.insert({
-		name: todoName, completed: false, createdAt: new Date()
+	var todoName = $('[name="todoName"]').val();
+	var currentList = this._id;
+		Todos.insert({
+				name: todoName,
+				completed: false,
+				createdAt: new Date(),
+				listId: currentList
 		});
-	// reset del campo después del insert.
-	$('[name="todoName"]').val('');
+		$('[name="todoName"]').val('');
 	}
-
 });
 
 Template.todoItem.events({

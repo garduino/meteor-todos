@@ -1,16 +1,14 @@
 
-
-
-<template name="todos"> 
+<template name="todos">
+<!-- <p>{{_id}}</p> -->
 {{> addTodo}}
 <ul>
-{{#each todo}} 
- {{> todoItem}}
+{{#each todo}}
+{{> todoItem}}
 {{/each}}
 </ul>
 {{> todosCount}}
 </template>
-
 
 <!--{{checked}} referencia al helper que devuelve el estado del checkbox en el documento-->
 <template name="todoItem">
@@ -84,4 +82,5 @@
 
 <template name="listPage">
 <h2>Tasks: {{name}}</h2>
+{{> todos}}
 </template>

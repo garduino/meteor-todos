@@ -130,6 +130,7 @@ Router.route('/', {
 });
 
 Router.route('/list/:_id', {
+		name: 'listPage',
 		template: 'listPage',
 		data: function(){
 			// console.log(this.params._id);
@@ -137,3 +138,14 @@ Router.route('/list/:_id', {
 			return Lists.findOne({ _id: currentList });
 		}
 });
+
+
+
+
+
+
+
+
+
+
+

@@ -98,17 +98,25 @@ Template.todoItem.events({
 
 });
 
+
 Template.addList.events({
-'submit form': function(event){
-event.preventDefault();
-var listName = $('[name=listName]').val(); Lists.insert({
-          name: listName
-      });
-      $('[name=listName]').val('');
-    }
+		'submit form': function(event){
+			event.preventDefault();
+			var listName = $('[name=listName]').val();
+			Lists.insert({
+					name: listName
+			}, function(error, results){
+				// console.log(results);
+				Router.go('listPage', { _id: results });
+			});
+			$('[name=listName]').val('');
+		}
 });
 
+
 }
+
+
 
 
 

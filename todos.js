@@ -28,16 +28,15 @@ Template.todoItem.helpers({
 
 
 Template.todosCount.helpers({
-// helpers go here
-	'totalTodos': function(){
-		// code goes here
-		return Todos.find().count();
-	},
-	'completedTodos': function(){
-		// code goes here
-		return Todos.find({ completed: true }).count();
-	}
-
+		// helpers go here
+		'totalTodos': function(){
+			var currentList = this._id;
+			return Todos.find({ listId: currentList }).count();
+		},
+		'completedTodos': function(){
+			var currentList = this._id;
+			return Todos.find({ listId: currentList, completed: true }).count();
+		}
 });
 
 Template.lists.helpers({

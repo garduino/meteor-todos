@@ -56,16 +56,15 @@
 <p>Welcome to the Todos application.</p>
 </template>
 
-
-<template name="main">
+<template name="main"> 
 <h1>Todos</h1>
-{{> navigation}}
-{{> lists}}
+    {{> navigation}}
+    {{#if currentUser}}
+        {{> lists}}
+    {{/if}}
 {{> yield}}
 <hr />
-<p>Copyright &copy; Todos, 2014-2015.</p>
-</template>
-
+<p>Copyright &copy; Todos, 2014-2015.</p> </template>
 
 <template name="lists"> 
 <h2>Lists</h2>

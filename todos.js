@@ -189,7 +189,7 @@ Router.route('/', {
     template: 'home'
 });
 
-// New save for checking.
+
 Router.route('/list/:_id', { 
 		name: 'listPage', 
 		template: 'listPage', 

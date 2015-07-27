@@ -189,17 +189,23 @@ Router.route('/', {
     template: 'home'
 });
 
-Router.route('/list/:_id', {
-		name: 'listPage',
-		template: 'listPage',
+
+Router.route('/list/:_id', { 
+		name: 'listPage', 
+		template: 'listPage', 
 		data: function(){
 			// console.log(this.params._id);
 			var currentList = this.params._id;
-			return Lists.findOne({ _id: currentList });
-		}
+			var currentUser = Meteor.userId();
+			return Lists.findOne({ _id: currentList, createdBy: currentUser });
+		},
+		onBeforeAction: function(){
+			this.next(); 
+			} else {
+			this.render("login");
+		} 
+	}
 });
-
-
 
 
 

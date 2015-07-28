@@ -55,7 +55,7 @@ Template.addTodo.events({
 	event.preventDefault();
 	// uso de jQuery para recuperar el valor del nombre, ver página 18
 	var todoName = $('[name="todoName"]').val();
-	var currentUser = Metor.userId();
+	var currentUser = Meteor.userId();
 	var currentList = this._id;
 		Todos.insert({
 				name: todoName,
@@ -199,13 +199,26 @@ Router.route('/list/:_id', {
 			var currentUser = Meteor.userId();
 			return Lists.findOne({ _id: currentList, createdBy: currentUser });
 		},
+		onRun: function(){
+			console.log("You triggered 'onRun' for 'listPage' route.");
+			this.next();
+		},
+		onRerun: function(){
+			console.log("You triggered 'onRerun' for 'listPage' route.");
+		},
 		onBeforeAction: function(){
 			var currentUser = Meteor.userId(); if(currentUser){
 			this.next(); 
 			} else {
 			this.render("login");
-		} 
-	}
+		}
+		},
+		onAfterAction: function(){
+			console.log("You triggered 'onAfterAction' for 'listPage' route.");
+		},
+		onStop: function(){
+			console.log("You triggered 'onStop' for 'listPage' route.");
+		}
 });
 
 

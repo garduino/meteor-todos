@@ -5,6 +5,20 @@ Router.configure({
 if(Meteor.isClient){
 // client code goes here
 
+Template.login.onCreated(function(){
+		console.log("The 'login' template was just created.");
+});
+
+Template.login.onRendered(function(){
+		$('.login').validate();
+});
+
+
+Template.login.onDestroyed(function(){
+		console.log("The 'login' template was just destroyed.");
+});
+
+
 // Helpers
 
 Template.todos.helpers({

@@ -10,7 +10,18 @@ Template.login.onCreated(function(){
 });
 
 Template.login.onRendered(function(){
-		$('.login').validate();
+		$('.login').validate({
+		rules: {
+			email: {
+				required: true,
+				email: true
+			},
+			password: {
+				required: true,
+				minlength: 6	
+			}
+		}
+		});
 });
 
 

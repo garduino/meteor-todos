@@ -19,6 +19,16 @@ Template.login.onRendered(function(){
 			password: {
 				required: true,
 				minlength: 6	
+			},
+			messages: {
+				// custom error messages go here
+				email: {
+					required: "You must enter an email address."
+				},
+				password: {
+					required: "You must enter a password.",
+					minlength: "Your password must be at least {0} characters."
+				}
 			}
 		}
 		});

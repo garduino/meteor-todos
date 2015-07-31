@@ -5,33 +5,35 @@ Router.configure({
 if(Meteor.isClient){
 // client code goes here
 
-Template.login.onCreated(function(){
-		console.log("The 'login' template was just created.");
-});
-
-Template.login.onRendered(function(){
-		$('.login').validate({
-		rules: {
-			email: {
-				required: true,
-				email: true
-			},
-			password: {
-				required: true,
-				minlength: 6	
+	$.validator.setDefaults({
+			rules: {
+				email: {
+					required: true,
+					email: true
+				},
+				password: {
+					required: true,
+					minlength: 6
+				}
 			},
 			messages: {
-				// custom error messages go here
 				email: {
-					required: "You must enter an email address."
+					required: "You must enter an email address.",
+					email: "You've entered an invalid email address."
 				},
 				password: {
 					required: "You must enter a password.",
 					minlength: "Your password must be at least {0} characters."
 				}
 			}
-		}
-		});
+	});
+
+Template.login.onCreated(function(){
+		console.log("The 'login' template was just created.");
+});
+
+Template.login.onRendered(function(){
+		$('.login').validate();
 });
 
 
@@ -157,6 +159,7 @@ Template.addList.events({
 Template.register.events({
 		'submit form': function(event){
 			event.preventDefault();
+			/*
 			var email = $('[name=email]').val();
 			var password = $('[name=password]').val();
 
@@ -169,15 +172,14 @@ Template.register.events({
 				Router.go("home"); // Redirect user if registration succeeds
 				} 
 				});
+				*/
 			}	
+				});
+
+Template.register.onRendered(function(){
+		$('.register').validate();
+});
 			
-				});			
-			
-			
-
-
-
-
 Template.navigation.events({
 		'click .logout': function(event){
 			event.preventDefault();

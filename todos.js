@@ -32,14 +32,53 @@ Template.login.onCreated(function(){
 		console.log("The 'login' template was just created.");
 });
 
+
 Template.login.onRendered(function(){
-		$('.login').validate();
-});
+		$('.login').validate({
+				submitHandler: function(event){
+					var email = $('[name=email]').val();
+					var password = $('[name=password]').val();
+					Meteor.loginWithPassword(email, password, function(error){
+							if(error){
+								console.log(error.reason);
+							} else {
+								var currentRoute = Router.current().route.getName();
+								if(currentRoute == "login"){
+									Router.go("home");
+								}
+							}
+					});
+				}
+		});
+	});
+
 
 
 Template.login.onDestroyed(function(){
 		console.log("The 'login' template was just destroyed.");
 });
+
+	Template.register.onRendered(function(){
+			$('.register').validate({
+					submitHandler: function(event){
+						var email = $('[name=email]').val();
+						var password = $('[name=password]').val();
+						Accounts.createUser({
+								email: email,
+								password: password
+						}, function(error){
+							if(error){
+								console.log(error.reason);
+							} else {
+								Router.go("home");
+							}
+						});
+					}
+			});
+	});
+
+
+
 
 
 // Helpers
@@ -160,6 +199,7 @@ Template.register.events({
 		'submit form': function(event){
 			event.preventDefault();
 			/*
+			Estos se copian la función submitHandler del form respectivo (login o register)
 			var email = $('[name=email]').val();
 			var password = $('[name=password]').val();
 

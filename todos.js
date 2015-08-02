@@ -34,23 +34,27 @@ Template.login.onCreated(function(){
 
 
 Template.login.onRendered(function(){
-		$('.login').validate({
+		var validator = $('.login').validate({
 				submitHandler: function(event){
 					var email = $('[name=email]').val();
-					var password = $('[name=password]').val();
+					var password = $('[name=password]').val(); 
 					Meteor.loginWithPassword(email, password, function(error){
-							if(error){
-								console.log(error.reason);
+							if(error){ 
+								validator.showErrors({
+										email: error.reason
+								});
 							} else {
-								var currentRoute = Router.current().route.getName();
+								var currentRoute = Router.current().route.getName(); 
 								if(currentRoute == "login"){
 									Router.go("home");
 								}
-							}
+							} 
 					});
-				}
+				} 
 		});
-	});
+});
+
+
 
 
 
@@ -199,7 +203,7 @@ Template.register.events({
 		'submit form': function(event){
 			event.preventDefault();
 			/*
-			Estos se copian la función submitHandler del form respectivo (login o register)
+			Estos se copian la funciï¿½n submitHandler del form respectivo (login o register)
 			var email = $('[name=email]').val();
 			var password = $('[name=password]').val();
 

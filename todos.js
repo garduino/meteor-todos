@@ -5,6 +5,8 @@ Router.configure({
 if(Meteor.isClient){
 // client code goes here
 
+Meteor.subscribe('lists');
+
 	$.validator.setDefaults({
 			rules: {
 				email: {
@@ -279,7 +281,16 @@ Template.login.events({
 
 if(Meteor.isServer){
 // server code goes here
+
+Meteor.publish('lists', function(){
+		var currentUser = this.userId;
+		return Lists.find({ createdBy: currentUser });
+});
+
 }
+
+
+
 
 Todos = new Meteor.Collection('todos');
 

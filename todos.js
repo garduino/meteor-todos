@@ -5,7 +5,10 @@ Router.configure({
 if(Meteor.isClient){
 // client code goes here
 
-Meteor.subscribe('lists');
+// Meteor.subscribe('lists');
+
+// Meteor.subscribe('todos');
+
 
 	$.validator.setDefaults({
 			rules: {
@@ -287,6 +290,11 @@ Meteor.publish('lists', function(){
 		return Lists.find({ createdBy: currentUser });
 });
 
+Meteor.publish('todos', function(){
+		var currentUser = this.userId;
+		return Todos.find({ createdBy: currentUser })
+});
+
 }
 
 
@@ -334,6 +342,9 @@ Router.route('/list/:_id', {
 		},
 		onStop: function(){
 			console.log("You triggered 'onStop' for 'listPage' route.");
+		},
+		subscriptions: function(){
+			return Meteor.subscribe('todos');
 		}
 });
 

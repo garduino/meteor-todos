@@ -290,9 +290,9 @@ Meteor.publish('lists', function(){
 		return Lists.find({ createdBy: currentUser });
 });
 
-Meteor.publish('todos', function(){
+Meteor.publish('todos', function(currentList){
 		var currentUser = this.userId;
-		return Todos.find({ createdBy: currentUser })
+		return Todos.find({ createdBy: currentUser, listId: currentList })
 });
 
 }
@@ -344,7 +344,8 @@ Router.route('/list/:_id', {
 			console.log("You triggered 'onStop' for 'listPage' route.");
 		},
 		subscriptions: function(){
-			return Meteor.subscribe('todos');
+			var currentList = this.params._id;
+			return Meteor.subscribe('todos', currentList)
 		}
 });
 

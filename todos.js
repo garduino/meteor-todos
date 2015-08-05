@@ -309,10 +309,13 @@ Router.route('/register');
 Router.route('/login');
 
 Router.route('/', {
-    name: 'home',
-    template: 'home'
+		name: 'home',
+		template: 'home',
+		subscriptions: function(){
+			var currentList = this.params._id;
+			return [ Meteor.subscribe('lists'), Meteor.subscribe('todos', currentList) ]
+		}		
 });
-
 
 Router.route('/list/:_id', { 
 		name: 'listPage', 

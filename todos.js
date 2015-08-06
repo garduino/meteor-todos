@@ -5,7 +5,7 @@ Router.configure({
 if(Meteor.isClient){
 // client code goes here
 
-// Meteor.subscribe('lists');
+Meteor.subscribe('lists');
 
 // Meteor.subscribe('todos');
 

@@ -302,8 +302,12 @@ Meteor.methods({
         	name: listName,
         	createdBy: currentUser
         	}
-        Lists.insert(data)
-} 
+        	if(!currentUser){
+        		throw new Meteor.Error("not-logged-in", "You're not logged-in.");
+        		} else {
+        	Lists.insert(data);
+        			}
+        		} 
 });
 
 Meteor.publish('lists', function(){

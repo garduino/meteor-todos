@@ -303,7 +303,8 @@ Meteor.methods({
         	createdBy: currentUser
         	}
         Lists.insert(data)
-} });
+} 
+});
 
 Meteor.publish('lists', function(){
 		var currentUser = this.userId;

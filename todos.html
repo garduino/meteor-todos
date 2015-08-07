@@ -70,15 +70,24 @@
 <hr />
 <p>Copyright &copy; Todos, 2014-2015.</p> </template>
 
+
+
 <template name="lists"> 
 <h2>Lists</h2>
     {{> addList}}
     <ul>
-	{{#each list}} 
-		<li><a href="{{pathFor route='listPage'}}">{{name}}</a></li>
+	{{#if Template.subscriptionsReady}}
+	{{#each list}}
+		<li><a href="{{pathFor route='listPage'}}">{{name}}</a></li> 
 	{{/each}}
+	{{else}}
+		<li>Loading ... </li>
+	{{/if}}
     </ul>
 </template>
+
+
+
 
 <template name="navigation"> 
 	<ul>

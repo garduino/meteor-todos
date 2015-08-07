@@ -7,9 +7,15 @@ Router.configure({
 if(Meteor.isClient){
 // client code goes here
 
-Meteor.subscribe('lists');
+// Meteor.subscribe('lists');
 
 // Meteor.subscribe('todos');
+
+
+Template.lists.onCreated(function () {
+	this.subscribe('lists');
+});
+
 
 
 	$.validator.setDefaults({
@@ -312,9 +318,7 @@ Router.route('/login');
 
 Router.route('/', {
     name: 'home',
-    template: 'home', 
-    waitOn: function(){
-    return Meteor.subscribe('lists'); }
+    template: 'home' 
 });
 
 Router.route('/list/:_id', { 
@@ -332,7 +336,8 @@ Router.route('/list/:_id', {
 		},
 		waitOn: function(){
 			var currentList = this.params._id;
-			return [ Meteor.subscribe('lists'), Meteor.subscribe('todos', currentList) ] }
+			return Meteor.subscribe('todos', currentList);
+		}
 });		
 		
 //Router.route('/', {

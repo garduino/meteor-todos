@@ -216,6 +216,7 @@ Template.todoItem.events({
 
 
 Template.addList.events({
+		
 		'submit form': function(event){
 			event.preventDefault();
 			var listName = $('[name=listName]').val();
@@ -228,9 +229,26 @@ Template.addList.events({
 			//	Router.go('listPage', { _id: results });
 			//});
 			//$('[name=listName]').val('');
-			Meteor.call('createNewList', listName);
+			// El createNewList termina con un return en el insert que 
+			// devuelve el doc creado a este call y los datos de ese
+			// doc se procesan desde el function acá, es un callback
+			Meteor.call('createNewList', listName, function(error, results){
+				if(error) { 
+					console.log(error.reason);
+				} else { 
+					Router.go('listPage', { _id: results });
+					$('[name=listName]').val('');
+				}
+			});
 		}
 });
+
+
+
+
+
+
+
 
 Template.register.events({
 		'submit form': function(event){
@@ -319,7 +337,7 @@ Meteor.methods({
         	if(!currentUser){
         		throw new Meteor.Error("not-logged-in", "You're not logged-in.");
         		} else {
-        	Lists.insert(data);
+        	return Lists.insert(data);
         			}
         		} 
 });

@@ -303,7 +303,7 @@ Meteor.methods({
         	createdBy: currentUser
         	}
         	if(!currentUser){
-        		console.log("You're not logged-in");
+        		throw new Meteor.Error("not-logged-in", "You're not logged-in.");
         		} else {
         	Lists.insert(data);
         			}

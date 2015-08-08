@@ -340,22 +340,30 @@ Meteor.methods({
         		},
         		
         		
-        'createListItem': function(todoName, currentList){ 
-        	check(todoName, String);
-        	check(currentList, String);
-        	var currentUser = Meteor.userId();
-        	var data = {
-        		name: todoName,
-        		completed: false, 
-        		createdAt: new Date(), 
-        		createdBy: currentUser, 
-        		listId: currentList
-        		} 
-        		if(!currentUser){
-        		throw new Meteor.Error("not-logged-in", "You're not logged-in.");
-        		}
-        return Todos.insert(data); 
-        }
+  'createListItem': function(todoName, currentList){ 
+  	  check(todoName, String);
+  	  check(currentList, String);
+  	  
+  	  var currentUser = Meteor.userId(); 
+  	  var data = {
+  	  	  name: todoName, 
+  	  	  completed: false, 
+  	  	  createdAt: new Date(), 
+  	  	  createdBy: currentUser, 
+  	  	  listId: currentList
+  	  	}
+
+  	  	if(!currentUser){
+  	  		throw new Meteor.Error("not-logged-in", "You're not logged-in.");
+  	  	}
+
+  	  	var currentList = Lists.findOne(currentList); 
+  	  	if(currentList.createdBy != currentUser){
+  	  		throw new Meteor.Error("invalid-user", "You don't own that list."); 
+  	  	}
+  		
+  	  	return Todos.insert(data); 
+  		}
         		
         		
 		

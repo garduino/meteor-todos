@@ -169,14 +169,12 @@ Template.addTodo.events({
 	var todoName = $('[name="todoName"]').val();
 	var currentUser = Meteor.userId();
 	var currentList = this._id;
-		Todos.insert({
-				name: todoName,
-				completed: false,
-				createdAt: new Date(),
-				createdBy: currentUser,
-				listId: currentList				
-		});
-		$('[name="todoName"]').val('');
+	Meteor.call('createListItem', todoName, currentList, function(error){
+			if(error){ 
+				console.log(error.reason);
+			} else { 
+				$('[name="todoName"]').val('');
+	} });	
 	}
 });
 
@@ -339,7 +337,29 @@ Meteor.methods({
         		} else {
         	return Lists.insert(data);
         			}
+        		},
+        		
+        		
+        'createListItem': function(todoName, currentList){ 
+        	check(todoName, String);
+        	check(currentList, String);
+        	var currentUser = Meteor.userId();
+        	var data = {
+        		name: todoName,
+        		completed: false, 
+        		createdAt: new Date(), 
+        		createdBy: currentUser, 
+        		listId: currentList
         		} 
+        		if(!currentUser){
+        		throw new Meteor.Error("not-logged-in", "You're not logged-in.");
+        		}
+        return Todos.insert(data); 
+        }
+        		
+        		
+		
+        
 });
 
 Meteor.publish('lists', function(){

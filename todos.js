@@ -294,11 +294,24 @@ Template.login.events({
 if(Meteor.isServer){
 // server code goes here
 
+function defaultName(currentUser) {
+	var nextLetter = 'A'
+	var nextName = 'List ' + nextLetter;
+	while (Lists.findOne({ name: nextName, createdBy: currentUser })) {
+        nextLetter = String.fromCharCode(nextLetter.charCodeAt(0) + 1);
+        nextName = 'List ' + nextLetter;
+    }
+return nextName; 
+}
+
 Meteor.methods({
 	'createNewList': function(listName){
         // code goes here
         var currentUser = Meteor.userId();
         check(listName, String);
+        if(listName == ""){ 
+        	listName = defaultName(currentUser);
+        	}
         var data = {
         	name: listName,
         	createdBy: currentUser

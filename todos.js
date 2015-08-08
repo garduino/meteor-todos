@@ -298,6 +298,7 @@ Meteor.methods({
 	'createNewList': function(listName){
         // code goes here
         var currentUser = Meteor.userId();
+        check(listName, String);
         var data = {
         	name: listName,
         	createdBy: currentUser

@@ -194,7 +194,7 @@ Template.todoItem.events({
 	} else {
 		var documentId = this._id;
 		var todoItem = $(event.target).val();
-		Todos.update({ _id: documentId }, {$set: { name: todoItem }});
+		Meteor.call('updateListItem', documentId, todoItem);
 	}
 },
 
@@ -363,12 +363,29 @@ Meteor.methods({
   	  	}
   		
   	  	return Todos.insert(data); 
+  		},
+  		
+  		
+  	'updateListItem': function(documentId, todoItem){ 
+  		check(todoItem, String);
+  		var currentUser = Meteor.userId();
+  		var data = {
+  			_id: documentId,
+  			createdBy: currentUser
   		}
-        		
-        		
-		
-        
+  		if(!currentUser){
+  			throw new Meteor.Error("not-logged-in", "You're not logged-in.");
+  		}
+  		Todos.update(data, {$set: { name: todoItem }});
+  		}
+        			        
 });
+
+
+
+
+
+
 
 Meteor.publish('lists', function(){
 		var currentUser = this.userId;

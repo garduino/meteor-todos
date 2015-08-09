@@ -184,7 +184,7 @@ Template.todoItem.events({
     	    event.preventDefault();
     	    var documentId = this._id;
     	    var confirm = window.confirm("Delete this task?"); if(confirm){
-    	    	    Todos.remove({ _id: documentId });
+    	    	    Meteor.call('removeListItem', documentId);
     	    }
 },
 
@@ -392,7 +392,20 @@ Meteor.methods({
 		throw new Meteor.Error("not-logged-in", "You're not logged-in.");
 	}
 	Todos.update(data, {$set: { completed: status }});
+	},
+	
+'removeListItem': function(documentId){ 
+	var currentUser = Meteor.userId(); 
+	var data = {
+		_id: documentId,
+		createdBy: currentUser
 	}
+	if(!currentUser){
+		throw new Meteor.Error("not-logged-in", "You're not logged-in.");
+	}
+	Todos.remove(data);
+}
+
         			        
 });
 

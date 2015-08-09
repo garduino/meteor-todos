@@ -198,17 +198,19 @@ Template.todoItem.events({
 	}
 },
 
-'change [type=checkbox]': function(){
+'change [type=checkbox]': function(){ 
 	var documentId = this._id;
-	var isCompleted = this.completed;
+	var isCompleted = this.completed; 
 	if(isCompleted){
-		Todos.update({ _id: documentId }, {$set: { completed: false }});
-		console.log("Task marked as incomplete.");
+		Meteor.call('changeItemStatus', documentId, false); 
 	} else {
-		Todos.update({ _id: documentId }, {$set: { completed: true }});
-		console.log("Task marked as complete.");
+		Meteor.call('changeItemStatus', documentId, true); 
 	}
 }
+
+
+
+
 
 });
 
@@ -377,7 +379,20 @@ Meteor.methods({
   			throw new Meteor.Error("not-logged-in", "You're not logged-in.");
   		}
   		Todos.update(data, {$set: { name: todoItem }});
-  		}
+  		},
+  		
+'changeItemStatus': function(documentId, status){
+	check(status, Boolean);
+	var currentUser = Meteor.userId();
+	var data = {
+		_id: documentId,
+		createdBy: currentUser
+	}
+	if(!currentUser){
+		throw new Meteor.Error("not-logged-in", "You're not logged-in.");
+	}
+	Todos.update(data, {$set: { completed: status }});
+	}
         			        
 });
 

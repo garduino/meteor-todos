@@ -159,6 +159,16 @@ Template.lists.helpers({
 		} 
 });
 
+
+Template.home.helpers({
+		// helpers go here
+		'loggedUser': function(){
+			// Tomado de http://stackoverflow.com/questions/14346422/how-to-get-logged-in-user-email-in-publish-functions-in-meteor
+			var loggedUser = Meteor.user();
+			return loggedUser.emails[0].address;
+		}
+});
+
 //Events
 Template.addTodo.events({
 // events go here

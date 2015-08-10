@@ -57,7 +57,11 @@
 </template>
 
 <template name="home">
+{{#if loggedUser}}
 <p>Welcome to the Todos application - You are logged as {{loggedUser}}.</p>
+{{else}}
+<p>Welcome to the Todos application.</p>
+{{/if}}
 </template>
 
 <template name="main"> 

@@ -229,18 +229,6 @@ Template.addList.events({
 		'submit form': function(event){
 			event.preventDefault();
 			var listName = $('[name=listName]').val();
-			//var currentUser = Meteor.userId();
-			//Lists.insert({
-			//		name: listName,
-			//		createdBy: currentUser
-			//}, function(error, results){
-			//	// console.log(results);
-			//	Router.go('listPage', { _id: results });
-			//});
-			//$('[name=listName]').val('');
-			// El createNewList termina con un return en el insert que 
-			// devuelve el doc creado a este call y los datos de ese
-			// doc se procesan desde el function acá, es un callback
 			Meteor.call('createNewList', listName, function(error, results){
 				if(error) { 
 					console.log(error.reason);
@@ -262,21 +250,6 @@ Template.addList.events({
 Template.register.events({
 		'submit form': function(event){
 			event.preventDefault();
-			/*
-			Estos se copian la funci�n submitHandler del form respectivo (login o register)
-			var email = $('[name=email]').val();
-			var password = $('[name=password]').val();
-
-			Accounts.createUser({
-				email: email,
-				password: password }, function(error){
-				if(error){
-				console.log(error.reason); // Output error if registration fails
-				} else {
-				Router.go("home"); // Redirect user if registration succeeds
-				} 
-				});
-				*/
 			}	
 				});
 
@@ -295,20 +268,6 @@ Template.navigation.events({
 Template.login.events({
 		'submit form': function(event){
 			event.preventDefault();
-			/*
-			var email = $('[name=email]').val();
-			var password = $('[name=password]').val();
-			Meteor.loginWithPassword(email, password, function(error){
-					if(error){
-						console.log(error.reason);
-					} else {
-						var currentRoute = Router.current().route.getName();
-						if(currentRoute == "login"){
-							Router.go("home");
-						}
-					}
-			});
-			*/
 		}
 });
 

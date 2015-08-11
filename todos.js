@@ -271,7 +271,22 @@ Template.login.events({
 		}
 });
 
+
+Template.lists.events({
+
+	'click .delete-list': function(event){ 
+    	    event.preventDefault();
+    	    var documentId = this._id;
+    	    var confirm = window.confirm("Delete this list?"); if(confirm){
+    	    	    Meteor.call('removeList', documentId);
+    	    }
+		
 }
+});
+
+
+}
+
 
 
 
@@ -372,6 +387,19 @@ Meteor.methods({
 		throw new Meteor.Error("not-logged-in", "You're not logged-in.");
 	}
 	Todos.remove(data);
+},
+
+
+'removeList': function(documentId){ 
+	var currentUser = Meteor.userId(); 
+	var data = {
+		_id: documentId,
+		createdBy: currentUser
+	}
+	if(!currentUser){
+		throw new Meteor.Error("not-logged-in", "You're not logged-in.");
+	}
+	Lists.remove(data);
 }
 
         			        

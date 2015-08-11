@@ -82,7 +82,8 @@
     <ul>
 	{{#if Template.subscriptionsReady}}
 	{{#each list}}
-		<li><a href="{{pathFor route='listPage'}}">{{name}}</a></li> 
+		<li><a href="{{pathFor route='listPage'}}">{{name}}</a>
+		[<a href="#" class="delete-list">Delete</a>]</li>
 	{{/each}}
 	{{else}}
 		<li>Loading ... </li>
